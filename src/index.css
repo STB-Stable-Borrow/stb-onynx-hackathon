@@ -1,0 +1,95 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@font-face {
+  font-family: "TT Firs Neue Trl";
+  src: url("https://fonts.cdnfonts.com/css/tt-firs-neue-trl%27")
+    format("truetype");
+
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* _scrollbar.scss
+
+/* Hide the scrollbar line */
+::-webkit-scrollbar-track {
+  background-color: black;
+}
+
+/* Style the scrollbar thumb */
+::-webkit-scrollbar-thumb {
+  background-color: #718096;
+  border-radius: 9999px;
+  border: 4px solid #b0b0b0;
+  background-clip: content-box;
+}
+
+/* Set the scrollbar width */
+::-webkit-scrollbar {
+  width: 2px;
+}
+
+body {
+  margin: 0;
+}
+
+.table {
+  filter: drop-shadow(0px 4px 20px rgba(0, 0, 0, 0.25));
+}
+
+.haunt {
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.35);
+}
+
+.liquidity {
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+/* .exchange {
+  background-image: url("../src/assets/info/exchangebg.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-color: blue;
+} */
+
+#App {
+  font-family: "TT Firs Neue Trl";
+  font-style: normal;
+  font: "TT Firs Neue Trl";
+}
+
+.hamburgerMenu {
+  border-radius: 20px;
+  background: linear-gradient(
+    109deg,
+    rgba(1, 48, 56, 0.7) 8.32%,
+    rgba(1, 49, 57, 0.4) 89.64%
+  );
+  backdrop-filter: blur(12.807690620422363px);
+}
+
+.exchange-head {
+  text-align: center;
+  font-family: TT Firs Neue Trl;
+  font-style: normal;
+  font-weight: 900;
+  line-height: 107%; /* 24.61px */
+  background: linear-gradient(90deg, #009fbd 7.89%, #865dff 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.head-border {
+  width: 9.11vw;
+  /* height: 4.26vh; */
+  flex-shrink: 0;
+  padding: 0.22rem;
+  margin-bottom: 1.48vh;
+  border-radius: 0.31rem;
+  border: 3.5px solid rgba(0, 159, 189, 0.5);
+  backdrop-filter: blur(20px);
+}
