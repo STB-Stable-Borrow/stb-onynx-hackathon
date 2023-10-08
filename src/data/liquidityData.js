@@ -40,5 +40,5 @@ const liquidityData = [
     percentage: 0.8,
   },
 ];
-
+// 
 export default liquidityData;
