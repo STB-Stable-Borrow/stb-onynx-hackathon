@@ -125,7 +125,7 @@ function Sidebar({
         ))}
       </div>
       <div
-        // onLoad={_verifyConnection}
+        onLoad={_verifyConnection}
         onClick={handleLogout}
         className={`${
           isExpanded ? "w-[182px]" : "w-[42px]"

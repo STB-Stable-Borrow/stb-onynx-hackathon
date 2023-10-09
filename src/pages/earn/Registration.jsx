@@ -13,18 +13,15 @@ import {
   createAccount,
 } from "../../lib/sbtContract";
 import { saveTokenDetails } from "../../lib/filebaseIpfs";
-import {
-  GatewayStatus,
-  IdentityButton,
-  useGateway,
-} from "@civic/ethereum-gateway-react";
-import { CivicPassProvider } from "../../contexts/civicpassContext";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { gaslessMint } from "../../lib/biconomy/smartAccount.ts";
+// import { generateKeyPair } from "../../lib/onynx/create-keypair.ts";
+// import { createVc } from "../../lib/onynx/create-and-sign-vc.ts";
+// import { createAndSignVp } from "../../lib/onynx/create-and-sign-vp.ts";
 
 function Registration() {
-  const { gatewayStatus } = useGateway();
-  const { web3, sbt, account, signer, address, connected, chainId } =
+  const { web3, sbt, account, signer, address, connected, chainId, smartAccount } =
     useContext(Web3ModalContext);
   const [createAvatar, setCreateAvatar] = useState(false);
   const [showRegistration, setShowRegistration] = useState(true);
@@ -43,7 +40,7 @@ function Registration() {
 
   // verify connection status and chainId
   const verifyConnection = () => {
-    const acceptIds = [50, 51];
+    const acceptIds = [5];
     if (!connected && !chainId) {
       toast.info("You have to connect your wallet to proceed");
       navigate("/");
@@ -70,7 +67,6 @@ function Registration() {
   const handleRegisterButtonColour = () => {
     if (registerBtn) {
       if (
-        captchaBtn.textContent == "Active" &&
         avatarImage &&
         username &&
         about
@@ -97,11 +93,16 @@ function Registration() {
         if (!res) {
           await totalTokenCount(sbt).then(async (res1) => {
             const tokenId = res1 + 1;
+            //generate verified credentials
+            // const holderkey1 = await generateKeyPair("1")
+            // const holderkey2 = await  generateKeyPair("2") 
+            // await createVc(tokenId, username, about, holderkey1);
+            // await createAndSignVp(holderkey1, holderkey2)
             saveTokenDetails(tokenId, username, about, avatarImage, account).on(
               "httpHeaders",
               async (statusCode, headers) => {
                 const tokenUrl = `https://ipfs.filebase.io/ipfs/${headers["x-amz-meta-cid"]}`;
-                await createAccount(sbt, tokenUrl, account).then((res2) => {
+                await gaslessMint(smartAccount, sbt, tokenUrl).then((res2) => {
                   if (res2) {
                     navigate("/dashboard");
                   } else {
@@ -164,8 +165,7 @@ function Registration() {
   }, [avatar]);
 
   return (
-    <CivicPassProvider _wallet={signer}>
-      <div className="w-screen md:h-screen h-full pb-[19.06rem] md:pb-0 bg-[#292C31] ">
+    <div className="w-screen md:h-screen h-full pb-[19.06rem] md:pb-0 bg-[#292C31] ">
         <Link to={"/"}>
           <img
             src={logo}
@@ -183,10 +183,10 @@ function Registration() {
             </div>
             <div className="bg-[#292C31] w-full gap-[3vh]  rounded-[15px] flex flex-col justify-between  p-[10px] mb-[2vh] ">
               <div className="bg-[#202225] py-[1vh] px-[3vw] rounded-[15px] flex flex-col items-center justify-center ">
-                <h1 className="text-[#009FBD] font-semibold text-sm mb-[2.4vh]  ">
+                {/* <h1 className="text-[#009FBD] font-semibold text-sm mb-[2.4vh]  ">
                   Step 1 - Verify you are human
                 </h1>
-                <IdentityButton />
+                <button>Verify</button> */}
               </div>
               <div className="gap-[25px] flex flex-col items-center justify-between md:h-[35.03vh] md:flex-row   ">
                 <div className="md:w-[30.81vw] w-full h-[15rem] flex flex-col items-center rounded-[15px] bg-[#202225] pt-[1.6vh] ">
@@ -271,7 +271,7 @@ function Registration() {
                 </button>
                 <button
                   id="register-btn"
-                  // onLoad={verifyConnection}
+                  onLoad={verifyConnection}
                   className="bg-[#585858] w-[8rem] h-[2.19rem] md:w-[164px] md:h-[6.95vh] rounded-lg flex items-center justify-center gap-2  hover:bg-opacity-75 "
                   onClick={handleMintProfile}
                 >
@@ -296,7 +296,6 @@ function Registration() {
           )
         }
       </div>
-    </CivicPassProvider>
   );
 }
 

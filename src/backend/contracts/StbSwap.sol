@@ -98,7 +98,7 @@ contract STBSWAP {
         _;
     }
 
-//-----READ FUNCTIONS-------
+    //-----READ FUNCTIONS-------
     function getPool(uint256 poolId) public view returns(Pool memory) {
         return pools[poolId - 1];
     }
@@ -181,7 +181,7 @@ contract STBSWAP {
         }
     }
 
-//-----WRITE FUNCTIONS-------   
+    //-----WRITE FUNCTIONS-------   
     
     function _createPool (uint256 id, address token1, address token2, uint256 fee, uint256 liq1, uint256 liq2, uint256 vol1, uint256 vol2) internal {
         pools.push(Pool(id, msg.sender, fee, token1, token2, liq1, liq2, vol1, vol2, 1000000000000000000, 1000000000000000000));

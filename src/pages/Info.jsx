@@ -30,7 +30,7 @@ function Info() {
 
   // verify connection status and chainId
   const verifyConnection = () => {
-    const acceptIds = [50, 51];
+    const acceptIds = [5];
     if (!connected && !chainId) {
       toast.error("You have to connect your wallet to proceed");
       navigate("/");
@@ -186,7 +186,7 @@ function Info() {
               </div>
             </div>
             <div
-              // onLoad={verifyConnection}
+              onLoad={verifyConnection}
               className="bg-gradient-to-r from-[#013038] to-[#013139]  border-[3px] border-[#009FBD] h-full w-full rounded-[30px] relative"
             >
               <div className="flex flex-col items-center gap-[5px] bg-black/30 w-full h-full rounded-[30px] px-[6px] py-2 ">

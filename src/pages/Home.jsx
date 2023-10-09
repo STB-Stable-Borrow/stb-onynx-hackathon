@@ -10,6 +10,7 @@ import { Web3ModalContext } from "../contexts/web3ModalContext";
 import { useNavigate } from "react-router-dom";
 import { useDashboard } from "../contexts/dashboardContext";
 import { getXdcContract } from "../lib/stbSwapContract";
+import { connectMagic } from "../lib/magic/magic";
 
 function Home() {
   const { connect, disconnect } = useContext(Web3ModalContext);
@@ -40,6 +41,7 @@ function Home() {
         navigate("/info");
       }
     });
+    // await connectMagic()
   };
 
   // handles wallet disconnection

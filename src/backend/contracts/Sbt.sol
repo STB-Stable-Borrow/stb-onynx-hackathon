@@ -2,9 +2,6 @@
 
 pragma solidity >=0.5.11 < 0.9.0;
 
-import "./SbtGated.sol";
-import "@identity.com/gateway-protocol-eth/contracts/Gated.sol";
-
 interface ISBT {
 
     //------READ FUNCTIONS-----//
@@ -34,7 +31,7 @@ interface ISBT {
     function reclaimToken(uint256 tokenId, address prevOwner, address reclaimer) external;
 }
 
-contract SBT is Gated, SbtGated {
+contract SBT  {
 
     // Token name
     string private _name;
@@ -74,7 +71,7 @@ contract SBT is Gated, SbtGated {
     event Blacklisting(address indexed from, address indexed to, uint indexed time);
 
 
-    constructor(string memory name_, string memory symbol_, address gatewayTokenContract, uint256 gatekeeperNetwork) Gated(gatewayTokenContract, gatekeeperNetwork) SbtGated(gatewayTokenContract, gatekeeperNetwork) {
+    constructor(string memory name_, string memory symbol_)  {
         _name = name_;
         _symbol = symbol_;
         _contractOwner = msg.sender;
@@ -186,7 +183,7 @@ contract SBT is Gated, SbtGated {
 
 //-------WRITE FUNCTIONS-----
 
-    function mint(string memory tokenUri) external gated validateAddress(msg.sender) validateNotTokenHolder(msg.sender)  {
+    function mint(string memory tokenUri) external validateAddress(msg.sender) validateNotTokenHolder(msg.sender)  {
        uint256 newTokenId = _lastTokenId + 1;
         _owners[msg.sender] = newTokenId;
         _tokenRecords[newTokenId][address(this)] = tokenUri;
@@ -257,7 +254,7 @@ contract SBT is Gated, SbtGated {
         emit Blacklisting(address(this), account, block.timestamp);
     }
     
-    function reclaimToken(uint256 tokenId, address prevOwner, address reclaimer) external isGated(reclaimer) validateClaimContract(msg.sender) validateTokenOwner(prevOwner, tokenId) validateAddress(reclaimer) validateNotTokenHolder(reclaimer) {
+    function reclaimToken(uint256 tokenId, address prevOwner, address reclaimer) external validateClaimContract(msg.sender) validateTokenOwner(prevOwner, tokenId) validateAddress(reclaimer) validateNotTokenHolder(reclaimer) {
         delete(_owners[prevOwner]);
         for(uint i = 0; i < _verifiedContracts.length; i++) {
              _tokenApprovals[tokenId][_verifiedContracts[i]] = false;

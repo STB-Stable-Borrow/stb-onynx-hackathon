@@ -1,18 +1,11 @@
 require("dotenv").config();
-const { MNEMONIC, XINFIN_NETWORK_URL, APOTHEM_NETWORK_URL } = process.env;
+const { MNEMONIC, GEORLI_RPC_URL } = process.env;
 const HDWalletProvider = require("@truffle/hdwallet-provider");
 module.exports = {
   networks: {
-    xinfin: {
-      provider: () => new HDWalletProvider(MNEMONIC, XINFIN_NETWORK_URL),
-      network_id: 50,
-      gasLimit: 6721975,
-      confirmation: 2,
-    },
-
-    apothem: {
-      provider: () => new HDWalletProvider(MNEMONIC, APOTHEM_NETWORK_URL),
-      network_id: 51,
+    georli: {
+      provider: () => new HDWalletProvider(MNEMONIC, GEORLI_RPC_URL),
+      network_id: 5,
       gasLimit: 6721975,
       confirmation: 2,
     },

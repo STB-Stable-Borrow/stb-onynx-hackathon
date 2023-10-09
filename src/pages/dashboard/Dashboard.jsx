@@ -24,7 +24,6 @@ import {
 import { getStcBalance } from "../../lib/stcContract";
 import { getCurrentPrice } from "../../lib/coingecko";
 import LoadingSpinner from "../../utils/spinner";
-import { CivicPassProvider } from "../../contexts/civicpassContext";
 import { isRegistered } from "../../lib/sbtContract";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -92,7 +91,7 @@ function Dashboard() {
 
   // verify connection status and chainId
   const verifyConnection = () => {
-    const acceptIds = [50, 51];
+    const acceptIds = [5];
     if (!connected && !chainId) {
       connect();
     }

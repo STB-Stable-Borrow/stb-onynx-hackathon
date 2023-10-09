@@ -46,7 +46,7 @@ function Borrow() {
 
   console.log("orroe");
   const verifyConnection = () => {
-    const acceptIds = [50, 51];
+    const acceptIds = [5];
     if (!connected && !chainId) {
       toast.error("You have to connect your wallet to proceed");
       navigate("/");
@@ -123,7 +123,7 @@ function Borrow() {
               _stc={stc}
               _stb={stb}
               onNextButtonClicked={handleVaultNext}
-              // onLoaded={verifyConnection}
+              onLoaded={verifyConnection}
             />
           )}
           {generateSTC && (
